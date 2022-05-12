@@ -13,7 +13,9 @@ const useData = () => {
     return res
   }
 
-  function flattenCompanies(arr: FullRawDataType) {
+  // when this func runs, it extracts one level deep
+  // on line 32, we recurse to keep extracting
+  function flattenCompanies(arr: FullRawDataType): any {
     let result = []
     for (const company of arr) {
       result.push(company)
@@ -43,6 +45,7 @@ const useData = () => {
       })
     }
 
+    // sort total comp greatest to least
     return results.sort((a, b) => b.total_compensation - a.total_compensation)
   }
 
@@ -62,7 +65,7 @@ const useData = () => {
   return { data, flatten }
 }
 const Home: NextPage = () => {
-  const { data, flatten } = useData()
+  const { flatten } = useData()
   console.log('flatten', flatten)
 
   return (
